@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using OpenAI_API;
+using OpenAI_API.Chat;
+using TMPro;
 using UnityEngine;
 
 public class OpenAIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("References")]
+    [SerializeField] private TextMeshProUGUI textField;
+    [SerializeField] private TMP_InputField inputField;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private OpenAIAPI _api;
+    private List<ChatMessage> _messages;
+    
+    
 }

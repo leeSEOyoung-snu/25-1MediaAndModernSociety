@@ -54,9 +54,9 @@ public class OpenAIManager : MonoBehaviour
         Debug.Log(startString);
     }
     
-    public async void GetResponse(string inputText)
+    public async void GetResponse()
     {
-        if (inputText.Length < 1) return;
+        if (inputField.text.Length < 1) return;
 
         textField.enabled = false;
 
@@ -65,7 +65,7 @@ public class OpenAIManager : MonoBehaviour
         // Fill the user message from the input field
         ChatMessage userMessage = new ChatMessage();
         userMessage.Role = ChatMessageRole.User;
-        userMessage.TextContent = inputText;
+        userMessage.TextContent = inputField.text;
         Debug.Log($"{userMessage.rawRole}: {userMessage.TextContent}");
         
         // Add the message to the list

@@ -1,27 +1,30 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionSceneManager : MonoBehaviour
+public class LLMManager : MonoBehaviour
 {
-    public static OptionSceneManager Instance { get; private set; }
+    public static LLMManager Instance { get; private set; } 
     
     [Header("References")]
     [SerializeField] private ByeoriController byeoriController;
-    [SerializeField] private OptionDialogueManager optionDialogueManager;
+    [SerializeField] private OpenAIManager openAIManager;
     [SerializeField] private GameObject bottomParent;
     [SerializeField] private Image fadePanelImg;
     
     [Header("Values")]
     [SerializeField] private float fadeDuration;
-
+    
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(this);
         Init();
     }
+
     private void Start()
     {
         StartCoroutine(InitCoroutine());
@@ -30,23 +33,23 @@ public class OptionSceneManager : MonoBehaviour
     private void Init()
     {
         bottomParent.SetActive(false);
-        optionDialogueManager.Init();
+        
         byeoriController.Init();
+        openAIManager.Init();
     }
-    
+
     private IEnumerator InitCoroutine()
     {
         yield return FadeIn();
         yield return byeoriController.FadeIn();
-        optionDialogueManager.StartConversation();
+        openAIManager.StartConversation();
         bottomParent.SetActive(true);
     }
-    
+
     private IEnumerator FadeIn()
     {
         fadePanelImg.color = Color.black;
         fadePanelImg.gameObject.SetActive(true);
-        
         fadePanelImg.DOColor(Color.clear, fadeDuration);
         yield return new WaitForSeconds(fadeDuration);
         
@@ -61,10 +64,11 @@ public class OptionSceneManager : MonoBehaviour
         fadePanelImg.DOColor(Color.black, fadeDuration);
         yield return new WaitForSeconds(fadeDuration);
     }
-    
+
     public IEnumerator EndConversation()
     {
+        yield return new WaitForSeconds(6f);
         yield return FadeOut();
-        GameManager.Instance.EndOption();
+        GameManager.Instance.EndLlm();
     }
 }

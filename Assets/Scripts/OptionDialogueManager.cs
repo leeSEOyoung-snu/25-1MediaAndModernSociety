@@ -134,6 +134,7 @@ public class OptionDialogueManager : MonoBehaviour
 
     private IEnumerator EndConversation()
     {
+        dialogue.text = _dialogueText;
         yield return new WaitForSeconds(4f);
         StartCoroutine(OptionSceneManager.Instance.EndConversation());
     }

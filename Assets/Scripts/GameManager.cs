@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         else
         {
             llmFirst = false;
-            code = "집가고싶다\n(띄어쓰기 없음 주의)";
+            code = "집에보내줘\n(띄어쓰기 없음 주의)";
         }
     }
 

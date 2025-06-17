@@ -24,7 +24,8 @@ public class OpenAIManager : MonoBehaviour
     
     public void Init()
     {
-        _api = new OpenAIAPI(apiKey);
+        // _api = new OpenAIAPI(apiKey);
+        _api = new OpenAIAPI("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");
         inputField.text = string.Empty;
     }
 
@@ -54,18 +55,19 @@ public class OpenAIManager : MonoBehaviour
         Debug.Log(startString);
     }
     
-    public async void GetResponse()
+    public async void GetResponse(string input)
     {
-        if (inputField.text.Length < 1) return;
+        if (input.Length < 1) return;
 
-        textField.enabled = false;
+        // textField.enabled = false;
+        inputField.enabled = false;
 
         GameManager.Instance.dialogueCnt++;
         
         // Fill the user message from the input field
         ChatMessage userMessage = new ChatMessage();
         userMessage.Role = ChatMessageRole.User;
-        userMessage.TextContent = inputField.text;
+        userMessage.TextContent = input;
         Debug.Log($"{userMessage.rawRole}: {userMessage.TextContent}");
         
         // Add the message to the list
@@ -128,10 +130,12 @@ public class OpenAIManager : MonoBehaviour
         }
         else if (GameManager.Instance.dialogueCnt >= _maxMessages)
         {
+            textField.text = processedContent;
             StartCoroutine(LLMManager.Instance.EndConversation());
             return;
         }
-        else textField.enabled = true;
+        // else textField.enabled = true;
+        else inputField.enabled = true;
         
         textField.text = processedContent;
     }

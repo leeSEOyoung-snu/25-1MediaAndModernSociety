@@ -24,8 +24,7 @@ public class OpenAIManager : MonoBehaviour
     
     public void Init()
     {
-        // _api = new OpenAIAPI(apiKey);
-        _api = new OpenAIAPI("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");
+        _api = new OpenAIAPI(apiKey);
         inputField.text = string.Empty;
     }
 
